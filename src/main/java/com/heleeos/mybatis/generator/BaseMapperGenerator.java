@@ -42,20 +42,20 @@ public class BaseMapperGenerator extends JavaMapperGenerator {
     class BaseMapperXmlGenerator extends XMLMapperGenerator {
 
         protected XmlElement getSqlMapElement() {
+            String namespace = introspectedTable.getMyBatis3SqlMapNamespace();
             FullyQualifiedTable table = introspectedTable.getFullyQualifiedTable();
             progressCallback.startTask(getString("Progress.12", table.toString())); //$NON-NLS-1$
-            XmlElement answer = new XmlElement("mapper"); //$NON-NLS-1$
-            String namespace = introspectedTable.getMyBatis3SqlMapNamespace();
-            answer.addAttribute(new Attribute("namespace", namespace)); //$NON-NLS-1$
 
-            context.getCommentGenerator().addRootComment(answer);
+            XmlElement xmlElement = new XmlElement("mapper"); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("namespace", namespace)); //$NON-NLS-1$
 
-            addResultMapWithBLOBsElement(answer);
-            addBaseColumnListElement(answer);
+            context.getCommentGenerator().addRootComment(xmlElement);
+            addResultMapWithoutBLOBsElement(xmlElement);
+            addResultMapWithBLOBsElement(xmlElement);
+            addBaseColumnListElement(xmlElement);
+            addElements(xmlElement);
 
-            addElements(answer);
-
-            return answer;
+            return xmlElement;
         }
 
         /** 添加xml节点 */

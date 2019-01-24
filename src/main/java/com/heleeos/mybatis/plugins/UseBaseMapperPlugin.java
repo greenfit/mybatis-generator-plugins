@@ -71,21 +71,31 @@ public class UseBaseMapperPlugin extends EmptyMapperPlugin {
         return files;
     }
 
+//    @Override
+//    public boolean sqlMapSelectByPrimaryKeyElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+//        log.info(element.toString());
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+//        log.info(element.toString());
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean sqlMapSelectAllElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+//        log.info(element.toString());
+//        return true;
+//    }
+
     @Override
-    public boolean sqlMapSelectByPrimaryKeyElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
-        log.info(element.toString());
+    public boolean sqlMapInsertSelectiveElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 
     @Override
-    public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
-        log.info(element.toString());
-        return true;
-    }
-
-    @Override
-    public boolean sqlMapSelectAllElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
-        log.info(element.toString());
+    public boolean sqlMapUpdateByPrimaryKeySelectiveElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 

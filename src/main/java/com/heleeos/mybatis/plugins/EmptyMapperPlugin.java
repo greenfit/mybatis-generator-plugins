@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- *
+ * 空的Mapper插件
  * Created by liyu on 2019/1/6.
  */
 public abstract class EmptyMapperPlugin extends PluginAdapter {

@@ -1,19 +1,34 @@
-package com.heleeos.mybatis.generator.xml.element;
+package com.heleeos.mybatis.generator.element;
 
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.api.dom.java.Method;
+import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.xml.Attribute;
-import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
-import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
-
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
 /**
+ * 根据实体类查询
  * Created by liyu on 2019/1/7.
  */
-public class SelectByDomainElementGenerator extends AbstractXmlElementGenerator {
+public class SelectByDomainElementGenerator extends AbstractElementGenerator {
 
     public SelectByDomainElementGenerator() {
         super();
+    }
+
+    @Override
+    public int getIndex() {
+        return 2;
+    }
+
+    @Override
+    public Method getJavaMethod() {
+        Method method = new Method();
+        method.setName("selectByDomain");
+        method.addJavaDocLine("/** 实体对象作为查询条件 */");
+        method.setReturnType(new FullyQualifiedJavaType("List<T>"));
+        method.addParameter(new Parameter(new FullyQualifiedJavaType("T"), "domain"));
+        return method;
     }
 
     @Override

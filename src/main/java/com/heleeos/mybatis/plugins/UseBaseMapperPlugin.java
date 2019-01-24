@@ -1,5 +1,6 @@
 package com.heleeos.mybatis.plugins;
 
+import com.heleeos.mybatis.generator.BaseMapperGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -13,6 +14,7 @@ import org.mybatis.generator.internal.util.messages.Messages;
 import java.util.*;
 
 /**
+ * 生成基本的BaseMapper插件
  * Created by liyu on 2019/1/6.
  */
 @Slf4j
@@ -42,8 +44,6 @@ public class UseBaseMapperPlugin extends EmptyMapperPlugin {
 
         return true;
     }
-
-
 
     /**
      * 生成dao
@@ -99,91 +99,7 @@ public class UseBaseMapperPlugin extends EmptyMapperPlugin {
         baseMapper.setVisibility(JavaVisibility.PUBLIC);
         baseMapper.addImportedType(new FullyQualifiedJavaType(List.class.getName()));
 
-        Method method = new Method();
-        method.setName("selectByDomain");
-        method.addJavaDocLine("");
-        method.addJavaDocLine("/** 实体对象作为查询条件 */");
-        method.setReturnType(new FullyQualifiedJavaType("List<T>"));
-        method.addParameter(new Parameter(new FullyQualifiedJavaType("T"), "domain"));
-        baseMapper.addMethod(method);
-
-        method = new Method();
-        method.setName("selectByPrimaryKey");
-        method.setReturnType(new FullyQualifiedJavaType("T"));
-        method.addParameter(new Parameter(new FullyQualifiedJavaType("int"), "id"));
-        baseMapper.addMethod(method);
-
-        method = new Method();
-        method.setName("countByDomain");
-        method.setReturnType(new FullyQualifiedJavaType("long"));
-        method.addParameter(new Parameter(new FullyQualifiedJavaType("T"), "domain"));
-        baseMapper.addMethod(method);
-
-
-//
-//        //int deleteByExample(E example);
-//        method=new Method();
-//        method.setName("deleteBy");
-//        method.setReturnType(new FullyQualifiedJavaType("int"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("E"),paramExample));
-//        service.addMethod(method);
-//
-//        //int insertSelective(T record);
-//        method=new Method();
-//        method.setName("insertSelective");
-//        method.setReturnType(new FullyQualifiedJavaType("int"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("T"),"record"));
-//        service.addMethod(method);
-//
-//        method=new Method();
-//        method.setName("insertBatchSelective");
-//        method.setReturnType(new FullyQualifiedJavaType("int"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("List<T>"),"records"));
-//        service.addMethod(method);
-//
-//
-//        //List<T> selectByExample(E example);
-//        method=new Method();
-//        method.setName("selectBy"+example);
-//        method.setReturnType(new FullyQualifiedJavaType("List<T>"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("E"),paramExample));
-//        service.addMethod(method);
-//
-//
-//        //T selectByPrimaryKey(PK id);
-//        method=new Method();
-//        method.setName("selectByPrimaryKey");
-//        method.setReturnType(new FullyQualifiedJavaType("T"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("PK"),"id"));
-//        service.addMethod(method);
-//
-//        method=new Method();
-//        method.setName("selectSingleBy"+example);
-//        method.setReturnType(new FullyQualifiedJavaType("T"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("E"),paramExample));
-//        service.addMethod(method);
-//
-//        //int updateByExampleSelective(T record, E example);
-//        method=new Method();
-//        method.setName("updateBy"+example+"Selective");
-//        method.setReturnType(new FullyQualifiedJavaType("int"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("@Param(\"record\") T"),"record"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("@Param(\""+paramExample+"\") E"),paramExample));
-//        service.addMethod(method);
-//
-//        //int updateByPrimaryKeySelective(T record);
-//        method=new Method();
-//        method.setName("updateByPrimaryKeySelective");
-//        method.setReturnType(new FullyQualifiedJavaType("int"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("T"),"record"));
-//        service.addMethod(method);
-//
-////        int updateBatchByPrimaryKeySelective(List<MaterialCopy> records);
-//        method=new Method();
-//        method.setName("updateBatchByPrimaryKeySelective");
-//        method.setReturnType(new FullyQualifiedJavaType("int"));
-//        method.addParameter(new Parameter(new FullyQualifiedJavaType("List<T>"),"records"));
-//        service.addMethod(method);
+        BaseMapperGenerator.ELEMENT_GENERATOR_LIST.forEach(generator -> baseMapper.addMethod(generator.getJavaMethod()));
 
         JavaFormatter javaFormatter = new DefaultJavaFormatter();
         javaFormatter.setContext(context);

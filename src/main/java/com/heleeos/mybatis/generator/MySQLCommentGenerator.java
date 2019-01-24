@@ -1,5 +1,6 @@
 package com.heleeos.mybatis.generator;
 
+import com.heleeos.mybatis.util.TimeFortmatUtil;
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -19,6 +20,9 @@ public class MySQLCommentGenerator implements CommentGenerator {
 
     }
 
+    /**
+     * 添加Java类的字段注释
+     */
     public void addFieldComment(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
         String remarks = introspectedColumn.getRemarks();
         field.addJavaDocLine("/** " + remarks + " */");
@@ -28,12 +32,14 @@ public class MySQLCommentGenerator implements CommentGenerator {
 
     }
 
+    /**
+     * 添加Java类注释
+     */
     public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         String remarks = introspectedTable.getRemarks();
         topLevelClass.addJavaDocLine("/**");
         topLevelClass.addJavaDocLine(" * " + remarks);
-        topLevelClass.addJavaDocLine(" *");
-        topLevelClass.addJavaDocLine(" * Created by liyu on ");
+        topLevelClass.addJavaDocLine(" * Created by liyu on " + TimeFortmatUtil.getNow("yyyy/M/d"));
         topLevelClass.addJavaDocLine(" */");
     }
 

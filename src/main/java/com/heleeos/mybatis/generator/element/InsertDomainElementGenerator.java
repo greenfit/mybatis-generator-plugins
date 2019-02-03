@@ -34,6 +34,7 @@ public class InsertDomainElementGenerator extends AbstractElementGenerator {
 
     @Override
     public void addElements(XmlElement parentElement) {
+        introspectedTable.setInsertSelectiveStatementId("insert");
         useMybatisGenerator(new InsertSelectiveElementGenerator(), parentElement);
     }
 }

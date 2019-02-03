@@ -34,6 +34,7 @@ public class UpdateDomainElementGenerator extends AbstractElementGenerator {
 
     @Override
     public void addElements(XmlElement parentElement) {
+        introspectedTable.setUpdateByPrimaryKeySelectiveStatementId("update");
         useMybatisGenerator(new UpdateByPrimaryKeySelectiveElementGenerator(), parentElement);
     }
 }

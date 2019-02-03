@@ -2,6 +2,8 @@ package com.heleeos.mybatis.generator.element;
 
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.dom.java.Method;
+import org.mybatis.generator.api.dom.xml.Attribute;
+import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElementGenerator;
@@ -53,5 +55,20 @@ public abstract class AbstractElementGenerator extends AbstractXmlElementGenerat
             whereBuilder.append(MyBatis3FormattingUtilities .getParameterClause(introspectedColumn));
         }
         return whereBuilder.toString();
+    }
+
+    /**
+     * 获取where字段的条件
+     */
+    protected XmlElement getWhereElement() {
+        XmlElement whereElement = new XmlElement("where");
+        introspectedTable.getAllColumns().forEach(column -> {
+            String exec = String.format("and %s = %s", column.getActualColumnName(), column.getJavaProperty());
+            XmlElement isNotNullElement = new XmlElement("if");
+            isNotNullElement.addAttribute(new Attribute("test", String.format("%s != null", column.getJavaProperty())));
+            isNotNullElement.addElement(new TextElement(exec));
+            whereElement.addElement(isNotNullElement);
+        });
+        return whereElement;
     }
 }

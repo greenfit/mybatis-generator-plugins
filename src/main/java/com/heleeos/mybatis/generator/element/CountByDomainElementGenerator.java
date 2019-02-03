@@ -40,7 +40,7 @@ public class CountByDomainElementGenerator extends AbstractElementGenerator {
 
         String sql = String.format("select count(0) from %s", introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
         xmlElement.addElement(new TextElement(sql));
-
+        xmlElement.addElement(getWhereElement());
         parentElement.addElement(xmlElement);
     }
 }

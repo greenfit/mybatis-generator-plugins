@@ -45,7 +45,7 @@ public class SelectByIdElementGenerator extends AbstractElementGenerator {
         String column = introspectedTable.getBaseColumnListId();
         String table = introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime();
 
-        String sql = String.format("select %s from %s %s", column, table, getWhereInfo());
+        String sql = String.format("select <include refid=\"%s\"/> from %s %s", column, table, getWhereInfo());
 
         xmlElement.addElement(new TextElement(sql));
 

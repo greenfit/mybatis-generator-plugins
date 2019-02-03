@@ -44,7 +44,10 @@ public class SelectByDomainElementGenerator extends AbstractElementGenerator {
         xmlElement.addAttribute(new Attribute("resultMap", introspectedTable.getBaseResultMapId()));
         xmlElement.addAttribute(new Attribute("parameterType", parameterType));
 
-        String sql = String.format("select <include refid=\"%s\"/> from %s", introspectedTable.getBaseColumnListId(), introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
+        String column = introspectedTable.getBaseColumnListId();
+        String table = introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime();
+
+        String sql = String.format("select <include refid=\"%s\"/> from %s", column, table);
         xmlElement.addElement(new TextElement(sql));
         xmlElement.addElement(getWhereElement());
         parentElement.addElement(xmlElement);

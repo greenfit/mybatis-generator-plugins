@@ -36,7 +36,7 @@ public class CountByDomainElementGenerator extends AbstractElementGenerator {
     public void addElements(XmlElement parentElement) {
         XmlElement xmlElement = new XmlElement("select");
         xmlElement.addAttribute(new Attribute("id", "countByDomain"));
-        xmlElement.addAttribute(new Attribute("resultType", "int"));
+        xmlElement.addAttribute(new Attribute("resultType", "long"));
 
         String sql = String.format("select count(0) from %s", introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
         xmlElement.addElement(new TextElement(sql));

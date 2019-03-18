@@ -63,7 +63,7 @@ public abstract class AbstractElementGenerator extends AbstractXmlElementGenerat
     protected XmlElement getWhereElement() {
         XmlElement whereElement = new XmlElement("where");
         introspectedTable.getAllColumns().forEach(column -> {
-            String exec = String.format("and %s = %s", column.getActualColumnName(), column.getJavaProperty());
+            String exec = String.format("and %s = #{%s}", column.getActualColumnName(), column.getJavaProperty());
             XmlElement isNotNullElement = new XmlElement("if");
             isNotNullElement.addAttribute(new Attribute("test", String.format("%s != null", column.getJavaProperty())));
             isNotNullElement.addElement(new TextElement(exec));
